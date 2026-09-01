@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "export:theme": "node scripts/export-theme.mjs",
+    "export:theme:tailwind": "npx @google/design.md export DESIGN.md --format tailwind > src/styles/tailwind.theme.json",
+    "lint:design": "npx @google/design.md lint DESIGN.md"
   },
   "dependencies": {
     "next": "16.3.4",
@@ -21,6 +24,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "js-yaml": "^4.3.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

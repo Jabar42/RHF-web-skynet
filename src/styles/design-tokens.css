@@ -1,0 +1,27 @@
+/* Generated from DESIGN.md — do not edit by hand */
+
+@theme {
+  --color-primary: #1f2a3d;
+  --color-marino: #1f2a3d;
+  --color-marino-dark: #161e2b;
+  --color-marino-light: #3a4a66;
+  --color-secondary: #c2a578;
+  --color-camel: #c2a578;
+  --color-camel-light: #d4bc96;
+  --color-accent: #6b4a2f;
+  --color-cuero: #6b4a2f;
+  --color-cuero-light: #8a6a4b;
+  --color-surface: #f3efe6;
+  --color-marfil: #f3efe6;
+  --color-marfil-dark: #e9e2d3;
+  --color-near-black: #1c1c1c;
+  --color-text-muted: #6a6a6a;
+  --color-lotus-white: #ffffff;
+  --font-display: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: 8px;
+  --radius-DEFAULT: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+}
