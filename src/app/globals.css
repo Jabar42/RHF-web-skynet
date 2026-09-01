@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* ─── RHF Brand Tokens ─── */
+:root {
+  --color-marino: #1F2A3D;
+  --color-camel: #C2A578;
+  --color-cuero: #6B4A2F;
+  --color-marfil: #F3EFE6;
+  --color-blanco: #FFFFFF;
+  --color-negro: #0A0A0A;
+}
+
+@theme inline {
+  --color-rhf-marino: var(--color-marino);
+  --color-rhf-camel: var(--color-camel);
+  --color-rhf-cuero: var(--color-cuero);
+  --color-rhf-marfil: var(--color-marfil);
+  --color-background: var(--color-marfil);
+  --color-foreground: var(--color-marino);
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+body {
+  background: var(--color-marfil);
+  color: var(--color-marino);
+  font-family: "Montserrat", sans-serif;
+}
