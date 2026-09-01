@@ -15,9 +15,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "RHF Cartera | Proyectos Inmobiliarios en Cartagena",
+  title: "RHF — Asesoría Inmobiliaria",
   description:
-    "Cartera de proyectos inmobiliarios de Rafael Hernández Franco. Doral Country, Doral Suite, Doral West, Acacias Campestre y Blue Garden — Zona Norte de Cartagena.",
+    "RHF — asesoría inmobiliaria premium en Cartagena. Nuestra cartera de proyectos en la Zona Norte y alrededores.",
 };
 
 export default function RootLayout({

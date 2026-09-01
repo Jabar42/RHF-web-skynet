@@ -1,28 +1,158 @@
 @import "tailwindcss";
 
-/* ─── RHF Brand Tokens ─── */
+/* ─────────────────────────────────────────────
+   RHF — Asesoría Inmobiliaria
+   Paleta: marino / camel / cuero / marfil
+   Tipografías: Cormorant Garamond (titulares) + Montserrat (cuerpo)
+   (Portado del borrador Astro publicado en Cloudflare, 2026-08-28)
+   ───────────────────────────────────────────── */
+
 :root {
-  --color-marino: #1F2A3D;
-  --color-camel: #C2A578;
-  --color-cuero: #6B4A2F;
-  --color-marfil: #F3EFE6;
-  --color-blanco: #FFFFFF;
-  --color-negro: #0A0A0A;
+  --marino: #1f2a3d;
+  --marino-dark: #161e2b;
+  --marino-light: #3a4a66;
+  --camel: #c2a578;
+  --camel-light: #d4bc96;
+  --cuero: #6b4a2f;
+  --cuero-light: #8a6a4b;
+  --marfil: #f3efe6;
+  --marfil-dark: #e9e2d3;
+  --near-black: #1c1c1c;
+  --text-muted: #6a6a6a;
+  --white: #ffffff;
 }
 
 @theme inline {
-  --color-rhf-marino: var(--color-marino);
-  --color-rhf-camel: var(--color-camel);
-  --color-rhf-cuero: var(--color-cuero);
-  --color-rhf-marfil: var(--color-marfil);
+  --color-marino: #1f2a3d;
+  --color-camel: #c2a578;
+  --color-cuero: #6b4a2f;
+  --color-marfil: #f3efe6;
+  --color-blanco: #ffffff;
+  --color-negro: #0a0a0a;
   --color-background: var(--color-marfil);
   --color-foreground: var(--color-marino);
-  --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Montserrat", sans-serif;
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
 }
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--marfil); }
 body {
-  background: var(--color-marfil);
-  color: var(--color-marino);
-  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  background: var(--marfil);
+  color: var(--near-black);
+  font-family: var(--font-sans), "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-serif), "Cormorant Garamond", ui-serif, Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* ── Nav ───────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  width: min(1180px, calc(100% - 40px)); margin: 0 auto;
+  padding: 20px 0;
+  background: rgb(243 239 230 / 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--marfil-dark);
+}
+.brand {
+  font-family: var(--font-serif), "Cormorant Garamond", serif;
+  font-size: 22px; font-weight: 600; color: var(--marino);
+  letter-spacing: 0.02em;
+}
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
+.nav-links a:hover { color: var(--marino); }
+.nav-cta {
+  padding: 10px 20px; border: 1px solid var(--marino);
+  border-radius: 14px; color: var(--marino);
+  font-size: 14px; font-weight: 600; transition: background 0.2s ease, color 0.2s ease;
+}
+.nav-cta:hover { background: var(--marino); color: var(--white); }
+
+/* ── Hero ──────────────────────────────────── */
+.hero { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 110px 0 90px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  color: var(--camel); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--camel); }
+.hero h1 {
+  margin-top: 22px; max-width: 720px;
+  font-size: clamp(48px, 6vw, 72px); line-height: 1.05;
+}
+.hero-sub { max-width: 540px; margin-top: 26px; color: var(--text-muted); font-size: 17px; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+.btn-primary, .btn-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  border-radius: 14px; padding: 14px 28px;
+  font-size: 14px; font-weight: 600; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.btn-primary { background: var(--marino); color: var(--white); }
+.btn-primary:hover { background: var(--marino-dark); transform: translateY(-2px); }
+.btn-ghost { background: var(--marfil); color: var(--marino); border: 1px solid var(--marino); }
+.btn-ghost:hover { background: var(--marfil-dark); transform: translateY(-2px); }
+
+/* ── Secciones ─────────────────────────────── */
+.section { border-top: 1px solid var(--marfil-dark); padding: 110px 0; }
+.section-shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+.section-kicker { color: var(--camel); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.section h2 { margin-top: 16px; font-size: clamp(36px, 4vw, 52px); line-height: 1.08; max-width: 640px; }
+.section-lede { max-width: 520px; margin-top: 22px; color: var(--text-muted); font-size: 16px; }
+
+/* ── Proyectos ─────────────────────────────── */
+.proyectos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 60px; }
+.proyecto-card {
+  border: 1px solid var(--marfil-dark); border-radius: 20px;
+  background: var(--white); padding: 30px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.proyecto-card:hover { box-shadow: 0 12px 40px rgb(31 42 61 / 0.08); transform: translateY(-3px); }
+.proyecto-card h3 { font-size: 22px; color: var(--marino); }
+.proyecto-card p { margin-top: 10px; color: var(--text-muted); font-size: 14px; }
+.proyecto-tag {
+  display: inline-block; margin-bottom: 18px; padding: 6px 14px;
+  border-radius: 9999px; background: var(--camel-light);
+  color: var(--marino); font-size: 12px; font-weight: 600;
+}
+
+/* ── Footer ────────────────────────────────── */
+.site-footer { border-top: 1px solid var(--marfil-dark); }
+.footer-inner {
+  width: min(1180px, calc(100% - 40px)); min-height: 110px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.footer-brand { font-family: var(--font-serif), "Cormorant Garamond", serif; font-size: 20px; color: var(--marino); }
+.footer-inner p, .footer-links { color: var(--text-muted); font-size: 13px; }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a:hover { color: var(--marino); }
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 900px) {
+  .proyectos-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .hero { padding: 90px 0 70px; }
+}
+@media (max-width: 560px) {
+  .hero, .section-shell, .footer-inner { width: min(100% - 28px, 1180px); }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { justify-content: center; }
+  .footer-inner { flex-direction: column; align-items: flex-start; padding: 26px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }

@@ -1,72 +1,108 @@
 export default function Home() {
+  const proyectos = [
+    { nombre: "Doral Country", zona: "Zona Norte", descripcion: "Apartamentos en torres en la Zona Norte." },
+    { nombre: "Doral Suite", zona: "Zona Norte", descripcion: "Apartamentos suite en la Zona Norte." },
+    { nombre: "Doral West", zona: "Zona Norte", descripcion: "Casas en la Zona Norte." },
+    { nombre: "Acacias Campestre", zona: "Cartagena", descripcion: "Apartamentos en torres." },
+    { nombre: "Blue Garden", zona: "Turbaco", descripcion: "Casas ampliables en Turbaco." },
+  ];
+
   return (
-    <div className="flex min-h-dvh flex-col">
-      {/* ─── Header ─── */}
-      <header className="bg-rhf-marino px-6 py-8 text-center text-rhf-marfil sm:px-12 sm:py-16">
-        <h1 className="font-serif text-5xl font-semibold tracking-tight sm:text-7xl">
-          Rafael Hernández Franco
-        </h1>
-        <p className="mt-4 text-lg font-light text-rhf-camel sm:text-xl">
-          Cartera de proyectos inmobiliarios — Cartagena de Indias
-        </p>
+    <>
+      <header className="nav">
+        <a className="brand" href="#inicio">
+          RHF
+        </a>
+        <nav className="nav-links">
+          <a href="#cartera">Nuestra cartera</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <a className="nav-cta" href="#contacto">
+          Escríbenos
+        </a>
       </header>
 
-      {/* ─── Proyectos ─── */}
-      <section className="flex-1 px-6 py-20 sm:px-12">
-        <h2 className="font-serif text-4xl font-semibold text-rhf-marino">
-          Nuestros proyectos
-        </h2>
-        <p className="mt-2 text-base text-rhf-cuero/80">
-          Propiedades premium en la Zona Norte de Cartagena.
-        </p>
+      <main>
+        <section className="hero" id="inicio">
+          <p className="eyebrow">Asesoría inmobiliaria · Cartagena</p>
+          <h1>Tu próximo proyecto, en la mejor ubicación.</h1>
+          <p className="hero-sub">
+            Asesoría inmobiliaria premium en Cartagena y la Zona Norte. Te acompañamos
+            en cada paso para encontrar el proyecto que se ajusta a lo que buscas.
+          </p>
+          <div className="hero-ctas">
+            <a className="btn-primary" href="#cartera">
+              Ver nuestra cartera
+            </a>
+            <a className="btn-ghost" href="#contacto">
+              Contactar
+            </a>
+          </div>
+        </section>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            "Doral Country",
-            "Doral Suite",
-            "Doral West",
-            "Acacias Campestre",
-            "Blue Garden",
-          ].map((nombre) => (
-            <article
-              key={nombre}
-              className="rounded-xl border border-rhf-camel/20 bg-white p-6 shadow-sm transition hover:shadow-md"
+        <section className="section" id="cartera">
+          <div className="section-shell">
+            <p className="section-kicker">Nuestra cartera</p>
+            <h2>Proyectos que asesoramos</h2>
+            <p className="section-lede">Conoce los proyectos en los que trabajamos hoy.</p>
+            <div className="proyectos-grid">
+              {proyectos.map((p) => (
+                <article className="proyecto-card" key={p.nombre}>
+                  <span className="proyecto-tag">{p.zona}</span>
+                  <h3>{p.nombre}</h3>
+                  <p>{p.descripcion}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Chat con nuestro agente ─── */}
+        <section className="section" id="chat">
+          <div className="section-shell">
+            <p className="section-kicker">Nuestro agente</p>
+            <h2>Conversa con nuestro agente</h2>
+            <p className="section-lede">
+              Pregunta por los proyectos, precios o disponibilidad. Te responde en
+              tiempo real.
+            </p>
+            {/* Aquí irá el widget de chat cuando se integre */}
+            <div
+              className="mt-8 max-w-md rounded-xl border border-dashed"
+              style={{
+                borderColor: "var(--camel-light)",
+                background: "rgb(255 255 255 / 0.6)",
+                padding: "2rem",
+                fontSize: "14px",
+                color: "var(--text-muted)",
+              }}
             >
-              <h3 className="font-serif text-2xl font-semibold text-rhf-marino">
-                {nombre}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-rhf-cuero/70">
-                {/* copy pendiente de definir con el stakeholder */}
-                Proyecto en la Zona Norte de Cartagena. Más información
-                próximamente.
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
+              Widget de chat — próximamente
+            </div>
+          </div>
+        </section>
 
-      {/* ─── Chat ─── */}
-      <section className="bg-rhf-marfil px-6 py-16 text-center sm:px-12">
-        <h2 className="font-serif text-3xl font-semibold text-rhf-marino">
-          Conversa con nuestro agente
-        </h2>
-        <p className="mx-auto mt-3 max-w-lg text-sm text-rhf-cuero/70">
-          Pregunta por los proyectos, precios o disponibilidad. Te responde en
-          tiempo real.
-        </p>
-        {/* Aquí irá el widget de chat cuando se integre */}
-        <div className="mx-auto mt-8 max-w-md rounded-xl border border-dashed border-rhf-camel/40 bg-white/60 p-8 text-sm text-rhf-cuero/50">
-          Widget de chat — próximamente
-        </div>
-      </section>
+        <section className="section" id="contacto">
+          <div className="section-shell">
+            <p className="section-kicker">Contacto</p>
+            <h2>Hablemos de tu próximo proyecto</h2>
+            <p className="section-lede">
+              Contáctanos por WhatsApp o visítanos en Cartagena. Te asesoramos sin compromiso.
+            </p>
+          </div>
+        </section>
+      </main>
 
-      {/* ─── Footer ─── */}
-      <footer className="bg-rhf-marino px-6 py-8 text-center text-sm text-rhf-marfil/60">
-        <p>© {new Date().getFullYear()} Rafael Hernández Franco</p>
-        <p className="mt-1">
-          Asesor inmobiliario independiente — Cartagena, Colombia
-        </p>
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <span className="footer-brand">RHF</span>
+          <div className="footer-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#cartera">Nuestra cartera</a>
+            <a href="#contacto">Contacto</a>
+          </div>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }
