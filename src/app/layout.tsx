@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import AgentChat from "@/components/AgentChat";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -30,7 +31,10 @@ export default function RootLayout({
       lang="es"
       className={`${cormorant.variable} ${montserrat.variable} scroll-smooth`}
     >
-      <body className="min-h-dvh font-sans antialiased">{children}</body>
+      <body className="min-h-dvh font-sans antialiased">
+        {children}
+        <AgentChat />
+      </body>
     </html>
   );
 }
