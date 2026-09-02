@@ -1,3 +1,11 @@
+import ChatWidget from '@/components/ChatWidget';
+import './globals.css';
+
+export const metadata = {
+  title: 'RHF - Asesoría Inmobiliaria',
+  description: 'Asesoría inmobiliaria premium en Cartagena y Zona Norte',
+};
+
 export default function Home() {
   const proyectos = [
     { nombre: "Doral Country", zona: "Zona Norte", descripcion: "Apartamentos en torres en la Zona Norte." },
@@ -66,18 +74,8 @@ export default function Home() {
               Pregunta por los proyectos, precios o disponibilidad. Te responde en
               tiempo real.
             </p>
-            {/* Aquí irá el widget de chat cuando se integre */}
-            <div
-              className="mt-8 max-w-md rounded-xl border border-dashed"
-              style={{
-                borderColor: "var(--camel-light)",
-                background: "rgb(255 255 255 / 0.6)",
-                padding: "2rem",
-                fontSize: "14px",
-                color: "var(--text-muted)",
-              }}
-            >
-              Widget de chat — próximamente
+            <div className="mt-8 max-w-md rounded-xl border border-dashed">
+              <ChatWidget />
             </div>
           </div>
         </section>
