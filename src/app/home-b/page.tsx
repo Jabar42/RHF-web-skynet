@@ -1,3 +1,4 @@
+// home-b: versión con hero-bg (imagen estática)
 const proyectos = [
   {
     nombre: "Doral Country",
