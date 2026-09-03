@@ -366,3 +366,142 @@ h1, h2, h3, h4 {
   .hero-bg { display: none; }
   .hero-content h1, .hero-content .hero-sub { color: var(--near-black); }
 }
+
+/* ═══════════════════════════════════════════════
+   SCROLLYTELLING — sin librerías de animación
+   Motor: IntersectionObserver + rAF (src/lib/motion.ts)
+   ═══════════════════════════════════════════════ */
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* ── Revelado al entrar en viewport ───────────
+   Estas clases NO están en el HTML servido: las pone `useReveal` en el
+   cliente, y sólo sobre lo que está fuera de pantalla. El HTML sale visible.
+   Si el JS no corre —crawler, hidratación fallida, red caída a medias— la
+   página se ve entera, sin animación. Ocultar por defecto y confiar en que
+   algo lo revele es cómo una landing termina en blanco. */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+  will-change: opacity, transform;
+}
+.reveal-up    { transform: translateY(28px); }
+.reveal-left  { transform: translateX(-32px); }
+.reveal-zoom  { transform: scale(0.94); }
+.reveal-blur  { filter: blur(8px); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  will-change: auto;
+}
+
+/* ── Stagger: hijos escalonados por --i ──────── */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.stagger.is-visible > * { opacity: 1; transform: none; }
+
+/* ── Parallax de la imagen de Zona Norte ─────── */
+.zone-img img {
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.08);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ── Cifras de Zona Norte (contadores) ───────── */
+.zone-cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+  padding: 26px 0;
+  border-top: 1px solid var(--marfil-dark);
+  border-bottom: 1px solid var(--marfil-dark);
+}
+.zone-cifra { display: flex; flex-direction: column; gap: 6px; }
+.zone-cifra strong {
+  font-family: var(--font-serif), "Cormorant Garamond", serif;
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 600; line-height: 1;
+  color: var(--marino);
+  font-variant-numeric: tabular-nums;
+}
+/* Hijo directo a propósito: el <span> del rótulo, no los que van dentro
+   del <strong> del contador (que deben heredar su tamaño grande). */
+.zone-cifra > span {
+  font-size: 12px; line-height: 1.45;
+  color: var(--text-muted);
+}
+.countup { font-variant-numeric: tabular-nums; }
+
+/* ── Bloque honesto: lo que todavía no está ──── */
+.zone-honesto {
+  margin-top: 32px; padding: 20px 22px;
+  border-left: 3px solid var(--camel);
+  background: var(--marfil);
+  border-radius: 0 14px 14px 0;
+}
+.zone-honesto h4 {
+  font-family: var(--font-sans), "Montserrat", sans-serif;
+  font-size: 14px; font-weight: 600; color: var(--marino);
+}
+.zone-honesto p { margin-top: 6px; color: var(--text-muted); font-size: 13.5px; line-height: 1.6; }
+.zone-fuentes { margin-top: 20px; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+
+/* ── Indicador de scroll del héroe ───────────── */
+.hero-scroll {
+  position: absolute; z-index: 2;
+  left: 50%; bottom: 34px; transform: translateX(-50%);
+  width: 26px; height: 42px;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 14px;
+  display: flex; justify-content: center; padding-top: 8px;
+}
+.hero-scroll span {
+  width: 3px; height: 8px; border-radius: 2px;
+  background: var(--camel);
+  animation: scrollHint 1.8s ease-in-out infinite;
+}
+@keyframes scrollHint {
+  0%, 100% { opacity: 0; transform: translateY(0); }
+  40%      { opacity: 1; transform: translateY(6px); }
+  70%      { opacity: 0; transform: translateY(12px); }
+}
+
+/* Sin JavaScript no hace falta regla: sin la clase `.js` en <html>
+   ningún elemento se oculta nunca. */
+
+/* ── Menos movimiento: se ve todo, no se anima ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    transition-delay: 0ms !important;
+  }
+  .zone-img img { transform: none !important; }
+  .hero-scroll span { animation: none; opacity: 0.8; }
+  .proyecto-card:hover { transform: none; }
+}
+
+/* ── Responsive del scrollytelling ───────────── */
+@media (max-width: 720px) {
+  .zone-cifras { grid-template-columns: 1fr; gap: 18px; }
+  .zone-cifra { flex-direction: row; align-items: baseline; gap: 12px; }
+  .zone-cifra > span { font-size: 12.5px; }
+  .hero-scroll { display: none; }
+}

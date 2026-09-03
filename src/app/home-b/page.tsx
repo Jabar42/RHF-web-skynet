@@ -1,4 +1,11 @@
-// home-b: versión con hero-bg (imagen estática)
+// home-b: versión con hero-bg (imagen estática).
+// Es una comparación interna del héroe, no una página de cara al público:
+// se excluye de la indexación para no competir con la home ni dejar una
+// segunda versión de nuestro copy circulando en buscadores.
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
 const proyectos = [
   {
     nombre: "Doral Country",
@@ -52,10 +59,13 @@ const proyectos = [
   },
 ];
 
+// Mismo copy verificado que la home: ver la nota de copy de Zona Norte en el
+// vault. Esta ruta es una comparación interna del héroe, pero es pública —
+// no puede publicar afirmaciones que la home ya corrigió.
 const iconosZonaNorte = [
-  { titulo: "Megaproyectos", texto: "Nuevo aeropuerto internacional, centros logísticos y desarrollos de gran escala están transformando la región." },
-  { titulo: "Valorización", texto: "La Zona Norte registra la mayor valorización predial de Cartagena. Invertir hoy es anticiparse al crecimiento." },
-  { titulo: "Conexión", texto: "Vías en ampliación, cercanía al centro histórico y acceso directo a la Vía al Mar." },
+  { titulo: "Aquí está la oferta", texto: "Cerca del 70 % de la vivienda nueva que se comercializa en Bolívar está en la Zona Norte (Camacol Bolívar)." },
+  { titulo: "La vía ya está hecha", texto: "El Viaducto del Gran Manglar —5,4 km sobre la ciénaga— opera desde 2018 y el corredor completo hacia Barranquilla desde 2021. La doble calzada de Tierra Baja está al 95 %." },
+  { titulo: "No es un desarrollo aislado", texto: "El hospital Santa Fe y el campus de Uniandes funcionan aquí desde 2018, a 12 km del Centro. Kristal Malls está en obra desde marzo de 2026, con apertura prevista para 2027." },
 ];
 
 import MeInteresaButton from "@/components/MeInteresaButton";
@@ -139,12 +149,11 @@ export default function Home() {
             <div className="zone-grid">
               <div className="zone-text">
                 <p className="section-kicker">Zona Norte</p>
-                <h2>Por qué invertir en la Zona Norte de Cartagena</h2>
+                <h2>La Zona Norte es donde Cartagena está creciendo</h2>
                 <p className="section-lede">
-                  La Zona Norte es el eje de expansión de Cartagena.
-                  Megaproyectos, nu evo aeropuerto y la mayor valorización
-                  de la ciudad la convierten en la mejor oportunidad
-                  de inversión inmobiliaria hoy.
+                  No lo decimos nosotros: siete de cada diez viviendas nuevas
+                  que se comercializan en Bolívar están aquí. Te contamos qué
+                  hay construido, qué está en obra y qué todavía no lo está.
                 </p>
                 <div className="zone-iconos">
                   {iconosZonaNorte.map((i) => (
@@ -187,7 +196,7 @@ export default function Home() {
                 </a>
                 <p className="contacto-chat-hint">
                   ¿Prefieres chatear directo en la página? Usa el ícono
-                  de chat abajo a la derecha — nu estro agente te responde
+                  de chat abajo a la derecha — nuestro agente te responde
                   al instante sobre precios, disponibilidad y más.
                 </p>
               </div>
