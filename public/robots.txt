@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rhf-web-skynet.vercel.app/sitemap.xml
