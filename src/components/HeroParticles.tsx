@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, Suspense } from "react";
+import { useRef, useMemo, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -14,19 +14,29 @@ const COUNT = 500;
 
 function Particles() {
   const meshRef = useRef<THREE.Points>(null!);
-  const mouseRef = useRef({ x: 0, y: 0 });
+  // Mouse normalized [-1, 1] leído desde window, no del canvas
+  const mouseRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
 
   // Geometría y colores (calculados una vez)
-  const { geometry, material, phases, speeds } = useMemo(() => {
+  const { geometry, material, phases, speeds, initials } = useMemo(() => {
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
     const ph = new Float32Array(COUNT);
     const sp = new Float32Array(COUNT);
+    const init = new Float32Array(COUNT * 3); // guardamos posición inicial
 
     for (let i = 0; i < COUNT; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 10;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
+      const x = (Math.random() - 0.5) * 10;
+      const y = (Math.random() - 0.5) * 6;
+      const z = (Math.random() - 0.5) * 4;
+
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
+
+      init[i * 3] = x;
+      init[i * 3 + 1] = y;
+      init[i * 3 + 2] = z;
 
       const isCamel = Math.random() < 0.6;
       const base = isCamel ? CAMEL : MARFIL;
@@ -39,14 +49,8 @@ function Particles() {
     }
 
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute(
-      "position",
-      new THREE.BufferAttribute(positions, 3)
-    );
-    geo.setAttribute(
-      "color",
-      new THREE.BufferAttribute(colors, 3)
-    );
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     const mat = new THREE.PointsMaterial({
       size: 0.04,
@@ -58,7 +62,24 @@ function Particles() {
       sizeAttenuation: true,
     });
 
-    return { geometry: geo, material: mat, phases: ph, speeds: sp };
+    return {
+      geometry: geo,
+      material: mat,
+      phases: ph,
+      speeds: sp,
+      initials: init,
+    };
+  }, []);
+
+  // Leer mouse desde window (ignora z-index del overlay de texto)
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      // Normalizar a [-1, 1] relativo al viewport
+      mouseRef.current.tx = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.ty = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
   // Animación por frame
@@ -68,23 +89,29 @@ function Particles() {
     const posAttr = meshRef.current.geometry.attributes.position;
     const pos = posAttr.array as Float32Array;
     const t = state.clock.elapsedTime;
+    const m = mouseRef.current;
 
-    const mx = state.mouse.x * 0.15;
-    const my = state.mouse.y * 0.1;
+    // Interpolar mouse hacia target (suavizado)
+    m.x += (m.tx - m.x) * 3 * delta;
+    m.y += (m.ty - m.y) * 3 * delta;
 
-    mouseRef.current.x += (mx - mouseRef.current.x) * 2 * delta;
-    mouseRef.current.y += (my - mouseRef.current.y) * 2 * delta;
-
+    // Movimiento autónomo + parallax sutil desde posición inicial
     for (let i = 0; i < COUNT; i++) {
       const i3 = i * 3;
-      pos[i3 + 1] += Math.sin(t * speeds[i] + phases[i]) * delta * 0.25;
-      pos[i3] += Math.cos(t * speeds[i] * 0.7 + phases[i]) * delta * 0.15;
+      const wave = Math.sin(t * speeds[i] + phases[i]);
+
+      // Posición base + onda sinusoidal + desplazamiento por mouse
+      pos[i3] = initials[i3] + wave * 0.3 + m.x * 0.6;
+      pos[i3 + 1] =
+        initials[i3 + 1] +
+        Math.cos(t * speeds[i] * 0.7 + phases[i]) * 0.25 +
+        m.y * 0.4;
+      pos[i3 + 2] = initials[i3 + 2] + wave * 0.15;
     }
 
-    meshRef.current.position.x = mouseRef.current.x;
-    meshRef.current.position.y = mouseRef.current.y;
-    meshRef.current.rotation.y = mouseRef.current.x * 0.3;
-    meshRef.current.rotation.x = -mouseRef.current.y * 0.2;
+    // Rotación global sutil del conjunto
+    meshRef.current.rotation.y = m.x * 0.15;
+    meshRef.current.rotation.x = -m.y * 0.1;
 
     posAttr.needsUpdate = true;
   });
