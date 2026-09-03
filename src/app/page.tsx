@@ -59,6 +59,7 @@ const iconosZonaNorte = [
 
 import MeInteresaButton from "@/components/MeInteresaButton";
 import ContactForm from "@/components/ContactForm";
+import HeroParticles from "@/components/HeroParticles";
 
 export default function Home() {
   return (
@@ -81,7 +82,7 @@ export default function Home() {
       <main>
         {/* ── Hero ─────────────────────────────── */}
         <section className="hero-wrap" id="inicio">
-          <div className="hero-bg" />
+          <HeroParticles />
           <div className="hero-content">
             <p className="eyebrow">Asesoría inmobiliaria · Cartagena</p>
             <h1>Tu próximo proyecto,<br />en la mejor ubicación.</h1>
