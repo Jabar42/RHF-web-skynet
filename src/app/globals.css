@@ -59,13 +59,16 @@ h1, h2, h3, h4 {
 /* ── Nav ─────────────────────────────────── */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  display: flex; align-items: center; justify-content: space-between;
-  width: min(1180px, calc(100% - 40px)); margin: 0 auto;
-  padding: 20px 0;
+  width: 100%;
   background: rgb(243 239 230 / 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--marfil-dark);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: min(1180px, calc(100% - 40px)); margin: 0 auto;
+  padding: 20px 0;
 }
 .brand {
   font-family: var(--font-serif), "Cormorant Garamond", serif;
@@ -303,7 +306,7 @@ h1, h2, h3, h4 {
 
 /* ── WhatsApp flotante ─────────────────────── */
 .whatsapp-float {
-  position: fixed; bottom: 28px; right: 28px; z-index: 60;
+  position: fixed; bottom: 112px; right: 28px; z-index: 100;
   display: flex; align-items: center; justify-content: center;
   width: 56px; height: 56px;
   border-radius: 50%;
@@ -344,7 +347,7 @@ h1, h2, h3, h4 {
   .btn-primary, .btn-ghost, .btn-card, .btn-whatsapp { justify-content: center; }
   .footer-top { flex-direction: column; align-items: flex-start; gap: 16px; }
   .footer-links { flex-wrap: wrap; gap: 14px; }
-  .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+  .whatsapp-float { bottom: 100px; right: 20px; width: 50px; height: 50px; }
   .contacto-form { padding: 24px; }
 }
 @media (prefers-reduced-motion: reduce) {

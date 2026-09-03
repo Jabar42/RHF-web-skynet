@@ -27,7 +27,7 @@ const proyectos = [
     tipologia: "Casas · Lote propio · 2 niveles",
     descripcion: "Casas con lote propio y espacio para crecer en familia.",
     destacado: false,
-    imagen: "https://images.unsplash.com/photo-1600566753086-00f18f6b0057?w=600&h=400&fit=crop",
+    imagen: "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&h=400&fit=crop",
   },
   {
     nombre: "Acacias Campestre",
@@ -47,7 +47,7 @@ const proyectos = [
     tipologia: "Casas ampliables · 3 habitaciones · Jardín",
     descripcion: "Casa familiar con lote generoso y posibilidad de ampliación.",
     destacado: false,
-    imagen: "https://images.unsplash.com/photo-1600596542815-ffad6c1539a9?w=600&h=400&fit=crop",
+    imagen: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop",
   },
 ];
 
@@ -65,15 +65,17 @@ export default function Home() {
     <>
       {/* ── Nav ─────────────────────────────── */}
       <header className="nav">
-        <a className="brand" href="#inicio">RHF</a>
-        <nav className="nav-links">
-          <a href="#cartera">Nuestra cartera</a>
-          <a href="#zonanorte">Zona Norte</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-        <a className="nav-cta" href="https://wa.me/573000000000?text=Hola%20Rafael,%20vi%20tu%20página%20y%20me%20interesa%20:" target="_blank" rel="noopener noreferrer">
-          Escríbenos
-        </a>
+        <div className="nav-inner">
+          <a className="brand" href="#inicio">RHF</a>
+          <nav className="nav-links">
+            <a href="#cartera">Nuestra cartera</a>
+            <a href="#zonanorte">Zona Norte</a>
+            <a href="#contacto">Contacto</a>
+          </nav>
+          <a className="nav-cta" href="https://wa.me/573000000000?text=Hola%20Rafael,%20vi%20tu%20página%20y%20me%20interesa%20:" target="_blank" rel="noopener noreferrer">
+            Escríbenos
+          </a>
+        </div>
       </header>
 
       <main>
@@ -154,7 +156,7 @@ export default function Home() {
               </div>
               <div className="zone-img">
                 <img
-                  src="https://images.unsplash.com/photo-1599408161930-0c1c8c2f6d4e?w=700&h=900&fit=crop"
+                  src="https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=700&h=900&fit=crop"
                   alt="Zona Norte Cartagena"
                   loading="lazy"
                 />
