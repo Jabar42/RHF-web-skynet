@@ -19,6 +19,7 @@ export const metadata = {
 import ContactForm from "@/components/ContactForm";
 import HeroParticles from "@/components/HeroParticles";
 import ZonaNorte from "@/components/ZonaNorte";
+import MapaZona from "@/components/MapaZona";
 import Cartera from "@/components/Cartera";
 import Reveal from "@/components/Reveal";
 
@@ -131,6 +132,9 @@ export default function Home() {
 
         {/* ── Acto 2 · Zona Norte (antes que la cartera) ── */}
         <ZonaNorte />
+
+        {/* ── El territorio · mapa interactivo ─── */}
+        <MapaZona />
 
         {/* ── Acto 4 · La cartera ──────────────── */}
         <Cartera proyectos={proyectos} />

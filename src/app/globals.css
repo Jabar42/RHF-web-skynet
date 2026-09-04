@@ -680,3 +680,68 @@ h1, h2, h3, h4 {
   line-height: 1.25; color: var(--marino) !important;
 }
 .section-honesto .zone-fuentes { margin-top: 28px; }
+
+/* ── Mapa de la zona ──────────────────────────────
+   El mapa realza la lista, y la lista se lee sola si el mapa queda fuera
+   de alcance. Por eso la lista lleva su propio texto completo. */
+.section-mapa { background: var(--white); border-top: 1px solid var(--marfil-dark); }
+.mapa-grid {
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 40px; align-items: start; margin-top: 44px;
+}
+.mapa-lienzo {
+  position: relative;
+  height: 62vh; min-height: 380px;
+  border-radius: 24px; overflow: hidden;
+  background: var(--marfil-dark);
+  box-shadow: 0 20px 60px rgb(31 42 61 / 0.14);
+}
+.mapa-canvas { position: absolute; inset: 0; }
+.mapa-cargando {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 13px;
+}
+.mapa-pin span {
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--marino); color: var(--marfil);
+  font-family: var(--font-sans), sans-serif; font-size: 13px; font-weight: 600;
+  border: 2px solid var(--camel);
+  box-shadow: 0 4px 14px rgb(31 42 61 / 0.35);
+}
+
+.mapa-lista { list-style: none; padding: 0; margin: 0; }
+.mapa-lista li { border-top: 1px solid var(--marfil-dark); }
+.mapa-lista li:first-child { border-top: none; }
+.mapa-lista button {
+  display: flex; gap: 14px; width: 100%;
+  padding: 18px 0; border: none; background: none;
+  text-align: left; cursor: pointer; color: inherit;
+  font-family: inherit;
+}
+.mapa-num {
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--marfil); color: var(--marino);
+  font-size: 12px; font-weight: 600;
+  border: 1px solid var(--marfil-dark);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.mapa-lista li.activo .mapa-num { background: var(--marino); color: var(--marfil); border-color: var(--marino); }
+.mapa-lista strong { display: block; font-size: 15px; color: var(--marino); }
+.mapa-lista em { display: block; margin-top: 5px; font-style: normal; font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
+.mapa-lista small { display: block; margin-top: 7px; font-size: 11px; color: var(--text-muted); }
+.mapa-volver button {
+  display: inline-flex; width: auto; padding: 14px 0;
+  font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--cuero); border-bottom: 1px solid transparent;
+}
+.mapa-volver button:hover { border-bottom-color: var(--camel); }
+.mapa-nota { padding: 18px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+
+@media (max-width: 860px) {
+  .mapa-grid { grid-template-columns: 1fr; gap: 26px; }
+  .mapa-lienzo { height: 52vh; min-height: 300px; }
+}
