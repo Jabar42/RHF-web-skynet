@@ -3,6 +3,7 @@
 import { useRef, useMemo, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { usePrefersReducedMotion } from "@/lib/motion";
 
 // ── Paleta RHF ──────────────────────────────
 const MARINO = new THREE.Color("#1F2A3D");
@@ -12,7 +13,7 @@ const MARFIL = new THREE.Color("#F3EFE6");
 // ── Sistema de partículas ───────────────────
 const COUNT = 500;
 
-function Particles() {
+function Particles({ frozen }: { frozen: boolean }) {
   const meshRef = useRef<THREE.Points>(null!);
   // Mouse normalized [-1, 1] leído desde window, no del canvas
   const mouseRef = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
@@ -71,8 +72,10 @@ function Particles() {
     };
   }, []);
 
-  // Leer mouse desde window (ignora z-index del overlay de texto)
+  // Leer mouse desde window (ignora z-index del overlay de texto).
+  // Con reduced-motion no se escucha nada: la escena queda quieta.
   useEffect(() => {
+    if (frozen) return;
     const onMove = (e: MouseEvent) => {
       // Normalizar a [-1, 1] relativo al viewport
       mouseRef.current.tx = (e.clientX / window.innerWidth) * 2 - 1;
@@ -80,11 +83,11 @@ function Particles() {
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [frozen]);
 
   // Animación por frame
   useFrame((state, delta) => {
-    if (!meshRef.current) return;
+    if (frozen || !meshRef.current) return;
 
     const posAttr = meshRef.current.geometry.attributes.position;
     const pos = posAttr.array as Float32Array;
@@ -135,11 +138,18 @@ function FallbackBg() {
 
 // ── Componente exportado ─────────────────────
 export default function HeroParticles() {
+  // Si el sistema pide menos movimiento, la escena se dibuja una vez y se
+  // congela: se ve el campo de partículas, pero nada se mueve ni escucha el
+  // mouse. El bloque CSS de reduced-motion no alcanza a un rAF de Three.js —
+  // hay que apagarlo acá.
+  const reduced = usePrefersReducedMotion();
+
   return (
     <Suspense fallback={<FallbackBg />}>
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
         dpr={[1, 1.5]}
+        frameloop={reduced ? "demand" : "always"}
         gl={{ antialias: true, alpha: false }}
         style={{
           position: "absolute",
@@ -148,7 +158,7 @@ export default function HeroParticles() {
             "linear-gradient(135deg, #1F2A3D 0%, #161E2B 60%, rgba(107,74,47,.3) 100%)",
         }}
       >
-        <Particles />
+        <Particles frozen={reduced} />
       </Canvas>
     </Suspense>
   );
