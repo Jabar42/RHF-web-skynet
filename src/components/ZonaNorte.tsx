@@ -39,9 +39,14 @@ const capitulos = [
     titulo: "La vía ya está hecha",
     texto:
       "El Viaducto del Gran Manglar opera desde 2018 y el corredor completo hacia Barranquilla desde 2021: $778.576 millones que conectan a cerca de 3 millones de personas.",
-    cifra: { to: 5.4, suffix: " km", decimals: 1 },
-    rotulo: "de viaducto sobre la ciénaga, operando desde 2018",
-    sr: "5,4 kilómetros de viaducto sobre la ciénaga, operando desde 2018",
+    // La cifra pasó de «5,4 km» a los años en operación (2026-09-04). Dos
+    // fuentes independientes contradicen los 5,4: Wikipedia da 4,73 km y la
+    // Sociedad Colombiana de Ingenieros 4,90 km, ambas más 360 m de retorno.
+    // Los años en operación salen de un hecho que la research sí fija —
+    // el viaducto opera desde el 28-jul-2018— y sostienen el mismo argumento.
+    cifra: { to: 8, suffix: " años", decimals: 0 },
+    rotulo: "lleva el viaducto sobre la ciénaga en operación, desde 2018",
+    sr: "8 años lleva el viaducto sobre la ciénaga en operación, desde 2018",
     fuente: "Obra entregada",
   },
   {
@@ -144,7 +149,7 @@ export default function ZonaNorte() {
         <div className="section-shell">
           <div className="hook">
             <p className="hook-titular">
-              Del aeropuerto hay un estudio. Del viaducto, 5,4 km.
+              Del aeropuerto hay un estudio. Del viaducto, ocho años.
             </p>
             <div className="hook-lineas">
               <p>La ANI evalúa la factibilidad del proyecto.</p>
