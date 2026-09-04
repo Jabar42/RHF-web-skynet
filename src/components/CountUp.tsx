@@ -20,6 +20,7 @@ export default function CountUp({
   suffix = "",
   duration = 1500,
   srText,
+  trigger,
 }: {
   to: number;
   decimals?: number;
@@ -27,8 +28,15 @@ export default function CountUp({
   suffix?: string;
   duration?: number;
   srText: string;
+  /** Dispara la cuenta desde fuera (un capítulo que se activa). Si se omite,
+   *  la cifra se anima al entrar en viewport. Dentro de un escenario anclado
+   *  el elemento SIEMPRE está en viewport, así que ahí hace falta esto. */
+  trigger?: boolean;
 }) {
-  const { ref, armed, visible } = useReveal<HTMLSpanElement>(0.4);
+  const auto = useReveal<HTMLSpanElement>(0.4);
+  const ref = auto.ref;
+  const armed = trigger === undefined ? auto.armed : true;
+  const visible = trigger === undefined ? auto.visible : trigger;
   // El valor de partida es el final: si nada anima (sin JS, reduced-motion,
   // o la cifra ya está en pantalla al cargar) se lee el dato correcto, no un 0.
   const [value, setValue] = useState(to);
