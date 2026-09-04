@@ -1,19 +1,27 @@
 "use client";
 
 import MeInteresaButton from "@/components/MeInteresaButton";
-import { useReveal } from "@/lib/motion";
+import {
+  capituloActivo,
+  usePrefersReducedMotion,
+  useScrollProgress,
+} from "@/lib/motion";
 
 /**
- * Acto 4 del scrollytelling — la cartera se revela proyecto por proyecto.
+ * Acto 4 — la cartera como capítulos, no como grilla.
  *
- * ⚠️ Los datos de ficha (precio, área, tipología) NO son fuente de verdad acá:
- * su cadena es Excel de la constructora con fecha de corte → nota del proyecto
- * en el vault → este componente. El precio de Acacias está en disputa
- * ($161M publicado vs $138M en la fuente) y por eso no se destaca ni se anima.
+ * El escenario queda anclado y los proyectos pasan de a uno: la imagen se
+ * funde, la ficha cambia. El usuario recorre la cartera en vez de barrerla de
+ * un vistazo, que era justamente el diagnóstico del plan («cinco tarjetas
+ * iguales, todas visibles al mismo tiempo»).
  *
- * Se descartó el scroll horizontal que proponía el plan: secuestra el scroll,
- * rompe la navegación por teclado y esconde contenido de Ctrl+F. El revelado
- * secuencial da la misma progresión sin ninguno de esos costos.
+ * Se descartó el scroll horizontal que proponía el plan —rompe teclado y
+ * Ctrl+F— pero NO la progresión: eso se logra anclando, sin tocar la rueda.
+ *
+ * ⚠️ Los datos de ficha no son fuente de verdad acá: su cadena es Excel de la
+ * constructora con fecha de corte → nota del proyecto en el vault → este
+ * componente. El precio de Acacias está en disputa ($161M publicado vs $138M
+ * en la fuente) y por eso no se destaca ni se anima.
  */
 
 type Proyecto = {
@@ -29,60 +37,76 @@ type Proyecto = {
 };
 
 export default function Cartera({ proyectos }: { proyectos: Proyecto[] }) {
+  const reduced = usePrefersReducedMotion();
+  const { ref, progress } = useScrollProgress<HTMLElement>(!reduced);
+  const { indice } = capituloActivo(progress, proyectos.length);
+
   return (
-    <section className="section" id="cartera">
-      <div className="section-shell">
-        <p className="section-kicker">Nuestra cartera</p>
-        <h2>Proyectos que asesoramos</h2>
-        <p className="section-lede">
-          Cinco proyectos en Cartagena, la Zona Norte y alrededores. Cada uno con
-          su perfil: desde entrada económica hasta vivienda premium.
-        </p>
-        <div className="proyectos-grid">
-          {proyectos.map((p, i) => (
-            <ProyectoCard proyecto={p} index={i} key={p.nombre} />
-          ))}
+    <section
+      className={"scrolly" + (reduced ? " scrolly-plano" : "")}
+      id="cartera"
+      ref={ref}
+      style={{ "--caps": proyectos.length } as React.CSSProperties}
+    >
+      <div className="scrolly-escenario">
+        <div className="section-shell scrolly-grid scrolly-grid-invertida">
+          <div className="scrolly-visual cartera-visual">
+            {proyectos.map((p, i) => (
+              <img
+                key={p.nombre}
+                src={p.imagen}
+                alt={p.nombre}
+                loading={i === 0 ? undefined : "lazy"}
+                className={reduced || i === indice ? "activo" : ""}
+              />
+            ))}
+            <span
+              className="scrolly-progreso"
+              style={{ transform: `scaleX(${reduced ? 1 : progress.toFixed(3)})` }}
+            />
+          </div>
+
+          <div className="scrolly-texto">
+            <p className="section-kicker">
+              Nuestra cartera{reduced ? "" : ` · ${indice + 1} de ${proyectos.length}`}
+            </p>
+            <h2>Proyectos que asesoramos</h2>
+
+            <div className="scrolly-capitulos cartera-capitulos">
+              {proyectos.map((p, i) => (
+                <article
+                  key={p.nombre}
+                  className={"scrolly-cap" + (reduced || i === indice ? " activo" : "")}
+                  aria-hidden={reduced ? undefined : i !== indice}
+                >
+                  <p className="proyecto-tipo">
+                    {p.zona} · {p.tipologia}
+                  </p>
+                  <h3>
+                    {p.nombre}
+                    {p.destacado && <span className="cartera-badge">Nuevo</span>}
+                  </h3>
+                  <p className="scrolly-cap-texto">{p.descripcion}</p>
+                  <div className="proyecto-datos">
+                    <span className="dato">
+                      <strong>{p.precio}</strong> <em>desde</em>
+                    </span>
+                    <span className="dato-sep" />
+                    <span className="dato">{p.area}</span>
+                  </div>
+                  <MeInteresaButton />
+                </article>
+              ))}
+            </div>
+
+            <ol className="scrolly-rail" aria-hidden="true">
+              {proyectos.map((p, i) => (
+                <li key={p.nombre} className={i <= indice ? "activo" : ""} />
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function ProyectoCard({ proyecto: p, index }: { proyecto: Proyecto; index: number }) {
-  const { ref, armed, visible } = useReveal<HTMLElement>(0.12);
-
-  return (
-    <article
-      ref={ref}
-      className={[
-        "proyecto-card",
-        p.destacado ? "destacado" : "",
-        armed ? "reveal" : "",
-        armed ? `reveal-${p.variante}` : "",
-        visible ? "is-visible" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      style={armed ? ({ transitionDelay: `${index * 90}ms` } as React.CSSProperties) : undefined}
-    >
-      <div className="proyecto-img">
-        <img src={p.imagen} alt={p.nombre} loading="lazy" />
-        <span className="proyecto-tag">{p.zona}</span>
-        {p.destacado && <span className="proyecto-tag proyecto-tag-nuevo">Nuevo</span>}
-      </div>
-      <div className="proyecto-body">
-        <h3>{p.nombre}</h3>
-        <p className="proyecto-tipo">{p.tipologia}</p>
-        <p className="proyecto-desc">{p.descripcion}</p>
-        <div className="proyecto-datos">
-          <span className="dato">
-            <strong>{p.precio}</strong> <em>desde</em>
-          </span>
-          <span className="dato-sep" />
-          <span className="dato">{p.area}</span>
-        </div>
-        <MeInteresaButton />
-      </div>
-    </article>
   );
 }

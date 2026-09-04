@@ -505,3 +505,150 @@ h1, h2, h3, h4 {
   .zone-cifra > span { font-size: 12.5px; }
   .hero-scroll { display: none; }
 }
+
+/* ═══════════════════════════════════════════════
+   ESCENARIO ANCLADO — el scrollytelling de verdad
+   La sección mide varias pantallas; adentro, un escenario sticky queda
+   quieto y el contenido avanza. Sin tocar la rueda: scroll nativo,
+   teclado, barra y Ctrl+F siguen funcionando.
+   ═══════════════════════════════════════════════ */
+
+.scrolly {
+  position: relative;
+  height: calc(100vh + var(--caps, 3) * 75vh);
+  border-top: 1px solid var(--marfil-dark);
+}
+.scrolly-escenario {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+/* Sin `width: 100%`: este elemento también lleva `.section-shell`, que le da
+   el ancho máximo y lo centra. Ponerle 100% lo pegaba al borde izquierdo. */
+.scrolly-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 56px; align-items: center;
+}
+.scrolly-grid-invertida .scrolly-visual { order: -1; }
+.scrolly-texto h2 {
+  margin-top: 12px; max-width: 14ch;
+  font-size: clamp(28px, 3vw, 40px); line-height: 1.08;
+}
+.scrolly-texto .section-lede { margin-top: 14px; font-size: 15px; }
+
+/* ── Capítulos: se apilan en el mismo hueco y se turnan ── */
+/* Los capítulos están absolutos y se turnan, así que el hueco tiene que
+   reservar el alto del más largo: si queda corto, el riel se le monta encima. */
+.scrolly-capitulos { position: relative; margin-top: 28px; min-height: 340px; }
+.scrolly-cap {
+  position: absolute; inset: 0;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.scrolly-cap.activo { opacity: 1; transform: none; pointer-events: auto; }
+.scrolly-cap.pasado { transform: translateY(-16px); }
+.scrolly-cap h3, .scrolly-cap h4 { color: var(--marino); }
+.scrolly-cap h4 {
+  font-family: var(--font-sans), "Montserrat", sans-serif;
+  font-size: 17px; font-weight: 600; margin-top: 14px;
+}
+.scrolly-cap h3 { font-size: clamp(24px, 2.6vw, 32px); margin-top: 10px; }
+.scrolly-cap-texto { margin-top: 10px; color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 46ch; }
+.scrolly-fuente { margin-top: 12px; font-size: 11.5px; color: var(--text-muted); }
+
+/* ── La cifra del capítulo ── */
+.scrolly-cifra strong {
+  display: block;
+  font-family: var(--font-serif), "Cormorant Garamond", serif;
+  font-size: clamp(44px, 6vw, 76px); font-weight: 600; line-height: 0.95;
+  color: var(--marino); font-variant-numeric: tabular-nums;
+}
+/* Hijo directo, igual que en `.zone-cifra`: el rótulo, NO el <span> del
+   contador que vive dentro del <strong> y debe heredar su tamaño grande.
+   Ya me había mordido este mismo descuido una vez. */
+.scrolly-cifra > span {
+  display: block; margin-top: 8px; max-width: 34ch;
+  font-size: 12.5px; line-height: 1.45; color: var(--text-muted);
+}
+.cartera-badge {
+  margin-left: 10px; padding: 4px 10px; border-radius: 9999px;
+  background: var(--camel); color: var(--marino);
+  font-family: var(--font-sans), sans-serif; font-size: 11px; font-weight: 600;
+  vertical-align: middle;
+}
+
+/* ── El visual anclado ── */
+.scrolly-visual {
+  position: relative; height: 68vh;
+  border-radius: 24px; overflow: hidden;
+  background: var(--marfil-dark);
+  box-shadow: 0 20px 60px rgb(31 42 61 / 0.14);
+}
+.scrolly-visual img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity 0.6s ease, transform 0.2s linear;
+}
+.cartera-visual img { opacity: 0; }
+.cartera-visual img.activo { opacity: 1; }
+
+/* Barra de avance del relato, dentro del propio visual */
+.scrolly-progreso {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 3px; background: var(--camel);
+  transform-origin: left center;
+  z-index: 2;
+}
+
+/* ── Riel de capítulos ── */
+.scrolly-rail {
+  display: flex; gap: 8px; list-style: none;
+  padding: 0; margin: 30px 0 0;
+}
+.scrolly-rail li {
+  width: 36px; height: 3px; border-radius: 2px;
+  background: var(--marfil-dark);
+  transition: background 0.35s ease;
+}
+.scrolly-rail li.activo { background: var(--camel); }
+
+.section-honesto { padding: 90px 0; background: var(--white); }
+
+/* ── Modo plano: móvil y reduced-motion ───────────
+   Anclar dos columnas en un teléfono es peor que no anclar: la mitad de la
+   pantalla se va en una imagen fija. Debajo de 860px el relato se desarma
+   y se lee en vertical, con todos los capítulos visibles. Lo mismo cuando
+   el sistema pide menos movimiento: ahí no se oculta nada. */
+.scrolly-plano { height: auto; }
+.scrolly-plano .scrolly-escenario { position: static; height: auto; padding: 90px 0; }
+.scrolly-plano .scrolly-grid { grid-template-columns: 1fr; gap: 36px; }
+.scrolly-plano .scrolly-capitulos { min-height: 0; }
+.scrolly-plano .scrolly-cap {
+  position: static; opacity: 1; transform: none; pointer-events: auto;
+  padding-bottom: 32px; margin-bottom: 32px;
+  border-bottom: 1px solid var(--marfil-dark);
+}
+.scrolly-plano .scrolly-cap:last-child { border-bottom: none; margin-bottom: 0; }
+.scrolly-plano .scrolly-visual { height: 46vh; }
+.scrolly-plano .cartera-visual img { opacity: 1; }
+.scrolly-plano .scrolly-rail { display: none; }
+
+@media (max-width: 860px) {
+  .scrolly { height: auto; }
+  .scrolly-escenario { position: static; height: auto; padding: 80px 0; }
+  .scrolly-grid, .scrolly-grid-invertida { grid-template-columns: 1fr; gap: 32px; }
+  .scrolly-grid-invertida .scrolly-visual { order: 0; }
+  .scrolly-capitulos { min-height: 0; }
+  .scrolly-cap {
+    position: static; opacity: 1; transform: none; pointer-events: auto;
+    padding-bottom: 28px; margin-bottom: 28px;
+    border-bottom: 1px solid var(--marfil-dark);
+  }
+  .scrolly-cap:last-child { border-bottom: none; margin-bottom: 0; }
+  .scrolly-visual { height: 42vh; }
+  .cartera-visual img { opacity: 1; }
+  .scrolly-rail { display: none; }
+  .scrolly-cifra strong { font-size: clamp(38px, 12vw, 56px); }
+}
