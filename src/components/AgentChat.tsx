@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import ChatWidget from "@tp3/chat-widget";
 
 // Widget flotante oficial (@tp3/chat-widget) → WebSocket directo al gateway
@@ -11,17 +10,6 @@ const WS_URL =
   process.env.NEXT_PUBLIC_CHAT_WS_URL || "wss://atencion-hrf.syberloop.com";
 
 export default function AgentChat() {
-  // El widget no se monta hasta que hay navegador. Medido el 2026-09-03: el
-  // paquete renderiza <div id="hermes-chat-ssr-placeholder"> en el servidor y
-  // <style> en el cliente, y ese desajuste hace fallar la hidratación de React
-  // (#418), que descarta el HTML del servidor y reconstruye toda la página en
-  // el cliente. `next/dynamic` con ssr:false no lo evitó; esperar al montaje
-  // sí, porque servidor y primer render del navegador coinciden en no pintar
-  // nada. El arreglo de fondo va en @tp3/chat-widget, no acá.
-  const [montado, setMontado] = useState(false);
-  useEffect(() => setMontado(true), []);
-  if (!montado) return null;
-
   return (
     <div
       style={
