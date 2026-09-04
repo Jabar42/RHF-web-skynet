@@ -45,7 +45,7 @@ const capitulos = [
     fuente: "Obra entregada",
   },
   {
-    titulo: "No es un desarrollo aislado",
+    titulo: "El entorno ya funciona",
     texto:
       "El hospital Santa Fe y el campus de Uniandes funcionan aquí desde 2018, a 12 km del Centro. Kristal Malls está en obra desde marzo de 2026, con apertura prevista para 2027.",
     cifra: { to: 95, suffix: " %", decimals: 0 },
@@ -74,8 +74,8 @@ export default function ZonaNorte() {
               <p className="section-kicker">Zona Norte</p>
               <h2>La Zona Norte es donde Cartagena está creciendo</h2>
               <p className="section-lede">
-                No lo decimos nosotros: siete de cada diez viviendas nuevas que
-                se comercializan en Bolívar están aquí.
+                Siete de cada diez viviendas nuevas de Bolívar están aquí. Te
+                contamos qué está hecho y qué está en estudio.
               </p>
 
               <div className="scrolly-capitulos">
@@ -133,18 +133,31 @@ export default function ZonaNorte() {
         </div>
       </section>
 
-      {/* El cierre honesto sale del escenario a propósito: llega cuando el
-          usuario ya recorrió los tres argumentos, y aterriza como remate. */}
+      {/* El remate sale del escenario a propósito: llega cuando el usuario ya
+          recorrió los tres argumentos.
+
+          Escrito con la regla de oro de la marca: el dato malo vende si se
+          gira. Dato → traducción → ventaja → cierre, y el cierre va SIEMPRE
+          sobre el beneficio del comprador, nunca sobre lo creíbles que somos
+          nosotros. Una línea por idea, ninguna pasa de once palabras. */}
       <section className="section section-honesto">
         <div className="section-shell">
-          <div className="zone-honesto">
-            <h4>Y lo que todavía no está</h4>
-            <p>
-              El nuevo aeropuerto internacional está en evaluación de
-              factibilidad ante la ANI, con concepto esperado para noviembre de
-              2026. Lo seguimos de cerca, pero no compramos ni vendemos con base
-              en él.
+          <div className="hook">
+            <p className="hook-titular">
+              Del aeropuerto hay un estudio. Del viaducto, 5,4 km.
             </p>
+            <div className="hook-lineas">
+              <p>La ANI evalúa la factibilidad del proyecto.</p>
+              <p>Su concepto se espera en noviembre de 2026.</p>
+              <p className="hook-giro">
+                Traducción: hoy pagas por lo que ya está hecho.
+              </p>
+              <p>Pide que el precio se sostenga en obra entregada.</p>
+              <p>Pregunta qué justifica cada peso antes de separar.</p>
+              <p className="hook-cierre">
+                Compra sobre lo construido. Ese es el criterio.
+              </p>
+            </div>
           </div>
           <p className="zone-fuentes">
             Cifras contrastadas contra fuentes primarias. Concentración de

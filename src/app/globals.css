@@ -652,3 +652,31 @@ h1, h2, h3, h4 {
   .scrolly-rail { display: none; }
   .scrolly-cifra strong { font-size: clamp(38px, 12vw, 56px); }
 }
+
+/* ── El hook del aeropuerto ───────────────────────
+   Una línea por idea, ninguna de más de once palabras. `text-wrap: balance`
+   y el ancho contenido evitan que una línea escrita corta se parta en dos
+   visuales, que es lo que rompe el ritmo de lectura. */
+.hook { max-width: 62ch; }
+.hook-titular {
+  font-family: var(--font-serif), "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 600; line-height: 1.12;
+  color: var(--marino);
+  text-wrap: balance;
+}
+.hook-lineas { margin-top: 26px; padding-left: 20px; border-left: 3px solid var(--camel); }
+.hook-lineas p {
+  margin: 0 0 8px;
+  font-size: clamp(15px, 1.5vw, 17px); line-height: 1.5;
+  color: var(--text-muted);
+  text-wrap: balance;
+}
+.hook-giro { color: var(--marino) !important; font-weight: 600; }
+.hook-cierre {
+  margin-top: 18px !important;
+  font-family: var(--font-serif), "Cormorant Garamond", serif;
+  font-size: clamp(20px, 2.2vw, 27px) !important;
+  line-height: 1.25; color: var(--marino) !important;
+}
+.section-honesto .zone-fuentes { margin-top: 28px; }
