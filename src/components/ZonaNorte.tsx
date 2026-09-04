@@ -45,7 +45,7 @@ const capitulos = [
     fuente: "Obra entregada",
   },
   {
-    titulo: "No es un desarrollo aislado",
+    titulo: "El entorno ya funciona",
     texto:
       "El hospital Santa Fe y el campus de Uniandes funcionan aquí desde 2018, a 12 km del Centro. Kristal Malls está en obra desde marzo de 2026, con apertura prevista para 2027.",
     cifra: { to: 95, suffix: " %", decimals: 0 },
@@ -74,8 +74,8 @@ export default function ZonaNorte() {
               <p className="section-kicker">Zona Norte</p>
               <h2>La Zona Norte es donde Cartagena está creciendo</h2>
               <p className="section-lede">
-                No lo decimos nosotros: siete de cada diez viviendas nuevas que
-                se comercializan en Bolívar están aquí.
+                Siete de cada diez viviendas nuevas de Bolívar están aquí. Te
+                contamos qué está hecho y qué está en estudio.
               </p>
 
               <div className="scrolly-capitulos">
@@ -144,18 +144,18 @@ export default function ZonaNorte() {
         <div className="section-shell">
           <div className="hook">
             <p className="hook-titular">
-              El aeropuerto que todos te venden todavía no existe.
+              Del aeropuerto hay un estudio. Del viaducto, 5,4 km.
             </p>
             <div className="hook-lineas">
-              <p>No está aprobado: está en evaluación ante la ANI.</p>
-              <p>El concepto se espera en noviembre de 2026.</p>
+              <p>La ANI evalúa la factibilidad del proyecto.</p>
+              <p>Su concepto se espera en noviembre de 2026.</p>
               <p className="hook-giro">
-                Traducción: hoy nadie puede cobrarte por esa obra.
+                Traducción: hoy pagas por lo que ya está hecho.
               </p>
-              <p>Si el precio ya la incluye, estás pagando de más.</p>
-              <p>Pregunta qué justifica el precio antes de separar.</p>
+              <p>Pide que el precio se sostenga en obra entregada.</p>
+              <p>Pregunta qué justifica cada peso antes de separar.</p>
               <p className="hook-cierre">
-                Compra por lo que está construido, no por lo prometido.
+                Compra sobre lo construido. Ese es el criterio.
               </p>
             </div>
           </div>
