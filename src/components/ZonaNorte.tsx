@@ -133,18 +133,31 @@ export default function ZonaNorte() {
         </div>
       </section>
 
-      {/* El cierre honesto sale del escenario a propósito: llega cuando el
-          usuario ya recorrió los tres argumentos, y aterriza como remate. */}
+      {/* El remate sale del escenario a propósito: llega cuando el usuario ya
+          recorrió los tres argumentos.
+
+          Escrito con la regla de oro de la marca: el dato malo vende si se
+          gira. Dato → traducción → ventaja → cierre, y el cierre va SIEMPRE
+          sobre el beneficio del comprador, nunca sobre lo creíbles que somos
+          nosotros. Una línea por idea, ninguna pasa de once palabras. */}
       <section className="section section-honesto">
         <div className="section-shell">
-          <div className="zone-honesto">
-            <h4>Y lo que todavía no está</h4>
-            <p>
-              El nuevo aeropuerto internacional está en evaluación de
-              factibilidad ante la ANI, con concepto esperado para noviembre de
-              2026. Lo seguimos de cerca, pero no compramos ni vendemos con base
-              en él.
+          <div className="hook">
+            <p className="hook-titular">
+              El aeropuerto que todos te venden todavía no existe.
             </p>
+            <div className="hook-lineas">
+              <p>No está aprobado: está en evaluación ante la ANI.</p>
+              <p>El concepto se espera en noviembre de 2026.</p>
+              <p className="hook-giro">
+                Traducción: hoy nadie puede cobrarte por esa obra.
+              </p>
+              <p>Si el precio ya la incluye, estás pagando de más.</p>
+              <p>Pregunta qué justifica el precio antes de separar.</p>
+              <p className="hook-cierre">
+                Compra por lo que está construido, no por lo prometido.
+              </p>
+            </div>
           </div>
           <p className="zone-fuentes">
             Cifras contrastadas contra fuentes primarias. Concentración de
