@@ -1,6 +1,7 @@
 const proyectos = [
   {
     nombre: "Doral Country",
+    href: "/proyectos/doral-country",
     zona: "Zona Norte",
     precio: "$259.500.000",
     area: "40 – 62 m²",
@@ -11,6 +12,7 @@ const proyectos = [
   },
   {
     nombre: "Doral Suite",
+    href: null,
     zona: "Zona Norte",
     precio: "Desde $320.000.000",
     area: "45 – 68 m²",
@@ -21,6 +23,7 @@ const proyectos = [
   },
   {
     nombre: "Doral West",
+    href: "/proyectos/doral-west",
     zona: "Zona Norte",
     precio: "Desde $380.000.000",
     area: "70 – 95 m²",
@@ -31,6 +34,7 @@ const proyectos = [
   },
   {
     nombre: "Acacias Campestre",
+    href: null,
     zona: "Cartagena",
     precio: "Desde $161.000.000",
     area: "33 – 70 m²",
@@ -41,6 +45,7 @@ const proyectos = [
   },
   {
     nombre: "Blue Garden",
+    href: null,
     zona: "Turbaco",
     precio: "Consultar",
     area: "Lote 250 m² · 75 m² construidos",
@@ -57,6 +62,7 @@ const iconosZonaNorte = [
   { titulo: "Conexión", texto: "Vías en ampliación, cercanía al centro histórico y acceso directo a la Vía al Mar." },
 ];
 
+import Link from "next/link";
 import MeInteresaButton from "@/components/MeInteresaButton";
 import ContactForm from "@/components/ContactForm";
 import HeroParticles from "@/components/HeroParticles";
@@ -125,7 +131,14 @@ export default function Home() {
                       <span className="dato-sep" />
                       <span className="dato">{p.area}</span>
                     </div>
-                    <MeInteresaButton />
+                    <div className="proyecto-acciones">
+                      <MeInteresaButton />
+                      {p.href && (
+                        <Link className="proyecto-link" href={p.href}>
+                          Ver el proyecto
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </article>
               ))}
@@ -187,7 +200,7 @@ export default function Home() {
                 </a>
                 <p className="contacto-chat-hint">
                   ¿Prefieres chatear directo en la página? Usa el ícono
-                  de chat abajo a la derecha — nu estro agente te responde
+                  de chat abajo a la derecha — nuestro agente te responde
                   al instante sobre precios, disponibilidad y más.
                 </p>
               </div>

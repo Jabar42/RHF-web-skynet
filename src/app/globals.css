@@ -745,3 +745,158 @@ h1, h2, h3, h4 {
   .mapa-grid { grid-template-columns: 1fr; gap: 26px; }
   .mapa-lienzo { height: 52vh; min-height: 300px; }
 }
+
+/* ─────────────────────────────────────────────
+   Landing de proyecto  (/proyectos/<slug>)
+   Reutiliza .nav, .section, .section-shell, .btn-*.
+   Solo agrega lo que la página de proyecto necesita.
+   ────────────────────────────────────────────── */
+
+button.nav-cta { border: none; cursor: pointer; font-family: inherit; }
+
+/* ── Hero del proyecto ─────────────────────── */
+.proyecto-hero {
+  position: relative;
+  min-height: min(82vh, 720px);
+  display: flex; align-items: flex-end;
+  padding: 140px 0 72px;
+  overflow: hidden;
+  background: var(--marino);
+}
+.proyecto-hero-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+.proyecto-hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgb(31 42 61 / 0.55) 0%, rgb(31 42 61 / 0.35) 45%, rgb(31 42 61 / 0.92) 100%);
+}
+.proyecto-hero-inner {
+  position: relative; z-index: 1;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  color: var(--white);
+}
+.proyecto-hero-inner h1 {
+  margin-top: 14px;
+  font-size: clamp(34px, 5.2vw, 60px);
+  line-height: 1.06;
+  max-width: 17ch;
+}
+.proyecto-hero-inner .eyebrow { color: var(--camel-light); }
+.proyecto-hero-inner .hero-sub {
+  margin-top: 20px; max-width: 46ch;
+  color: rgb(255 255 255 / 0.88);
+  font-size: clamp(16px, 1.6vw, 19px);
+}
+.proyecto-hero-inner .hero-ctas { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 14px; }
+.breadcrumb {
+  font-size: 13px; letter-spacing: 0.06em;
+  color: rgb(255 255 255 / 0.7); margin: 0 0 18px;
+}
+.breadcrumb a { color: rgb(255 255 255 / 0.7); }
+.breadcrumb a:hover { color: var(--camel-light); }
+
+/* ── Ficha de datos ────────────────────────── */
+.ficha-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1px;
+  margin-top: 56px;
+  background: var(--marfil-dark);
+  border: 1px solid var(--marfil-dark);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.ficha-item { background: var(--white); padding: 26px 28px; }
+.ficha-label {
+  margin: 0; color: var(--camel);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.ficha-valor {
+  margin: 8px 0 0; color: var(--near-black);
+  font-size: 16px; line-height: 1.5;
+}
+.aviso-fuente {
+  margin-top: 26px; max-width: 68ch;
+  color: var(--text-muted); font-size: 13.5px; line-height: 1.6;
+}
+
+/* ── Secciones alternas ────────────────────── */
+.section-alterna { background: var(--marfil-dark); }
+.doble-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 56px;
+}
+.lista-tipologias, .lista-amenidades { list-style: none; padding: 0; margin: 40px 0 0; }
+.lista-tipologias li {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 18px 0; border-bottom: 1px solid rgb(31 42 61 / 0.12);
+}
+.lista-tipologias li strong {
+  font-family: var(--font-serif), "Cormorant Garamond", ui-serif, Georgia, serif;
+  font-size: 21px; font-weight: 600; color: var(--marino);
+}
+.lista-tipologias li span { color: var(--text-muted); font-size: 15px; }
+.lista-amenidades { display: flex; flex-wrap: wrap; gap: 10px; }
+.lista-amenidades li {
+  background: var(--white); color: var(--marino);
+  border-radius: 9999px; padding: 8px 18px;
+  font-size: 14px; font-weight: 500;
+}
+
+/* ── Galería ───────────────────────────────── */
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px; margin-top: 56px;
+}
+.galeria-grid figure { margin: 0; border-radius: 20px; overflow: hidden; background: var(--marfil-dark); }
+.galeria-grid img {
+  width: 100%; height: 260px; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.galeria-grid figure:hover img { transform: scale(1.04); }
+.galeria-grid figure:first-child { grid-column: span 2; }
+.galeria-grid figure:first-child img { height: 340px; }
+
+/* ── Zona Norte (versión corta de la landing de proyecto) ── */
+.zona-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; margin-top: 48px;
+}
+.zona-card { background: var(--white); border-radius: 20px; padding: 28px; }
+.zona-card h3 { font-size: 21px; color: var(--marino); }
+.zona-card p { margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: var(--near-black); }
+.zona-card-fuente {
+  margin-top: 16px !important;
+  color: var(--text-muted) !important;
+  font-size: 12px !important; letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+/* ── CTA final ─────────────────────────────── */
+.proyecto-cta { text-align: center; }
+.proyecto-cta h2, .proyecto-cta .section-lede { margin-left: auto; margin-right: auto; }
+.proyecto-cta .section-lede { max-width: 56ch; }
+.proyecto-cta .btn-primary { margin-top: 34px; }
+
+@media (max-width: 720px) {
+  .proyecto-hero { padding: 120px 0 56px; min-height: 76vh; }
+  .galeria-grid figure:first-child { grid-column: span 1; }
+  .galeria-grid figure:first-child img { height: 260px; }
+  .doble-grid { gap: 40px; }
+}
+
+/* Acciones de la tarjeta de proyecto en la home */
+.proyecto-acciones { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.proyecto-link {
+  font-size: 14px; font-weight: 600; color: var(--cuero);
+  border-bottom: 1px solid rgb(107 74 47 / 0.35);
+  padding-bottom: 2px; transition: color 0.3s ease, border-color 0.3s ease;
+}
+.proyecto-link:hover { color: var(--marino); border-color: var(--marino); }
