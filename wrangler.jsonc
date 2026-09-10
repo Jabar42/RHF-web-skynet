@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Debe coincidir con el nombre del Worker en el panel de Cloudflare,
+  // o el build de Workers Builds falla.
+  "name": "rhf-web-skynet",
+  "compatibility_date": "2026-09-10",
+  // Worker de solo assets: sirve el export estático de Next.js (`out/`).
+  "assets": {
+    "directory": "./out/",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
